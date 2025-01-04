@@ -13,7 +13,7 @@ const Main: React.FC<Props> = ({ children }) => {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}
-            className="w-[95vw] h-[97vh] mx-5 my-2 rounded-xl"
+            className="w-[95vw] h-[97vh] mx-5 my-2 rounded-xl overflow-scroll"
         >
             {children}
         </div>

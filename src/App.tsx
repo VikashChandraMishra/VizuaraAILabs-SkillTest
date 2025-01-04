@@ -5,6 +5,9 @@ import { Option } from "./types";
 import SearchFlight from "./components/options/SearchFlight";
 import { options } from "./data";
 import Conclusion from "./components/options/Conclusion";
+import BoardingPass from "./components/options/BoardingPass";
+import PassengerDetails from "./components/options/PassengerDetails";
+import SelectSeat from "./components/options/SelectSeat";
 
 const App = () => {
 
@@ -14,6 +17,9 @@ const App = () => {
     let component = <></>;
     switch (selectedOption.name) {
       case 'Search Flight': component = <SearchFlight />; break;
+      case 'Passenger Details': component = <PassengerDetails />; break;
+      case 'Select Seat': component = <SelectSeat />; break;
+      case 'Boarding Pass': component = <BoardingPass />; break;
       case 'Conclusion': component = <Conclusion />; break;
     }
     return component;

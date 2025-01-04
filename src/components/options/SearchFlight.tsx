@@ -1,12 +1,13 @@
 import {
     Box,
-    TextField,
     Button,
-    InputAdornment,
     IconButton,
     Typography,
 } from "@mui/material";
-import { SwapHoriz, CalendarToday, Search } from "@mui/icons-material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { SwapHoriz, Search } from "@mui/icons-material";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AirportSearch from "../additional/AirportSearch";
 import { airlines } from "../../data";
 import { Airport } from "../../types";
@@ -73,7 +74,7 @@ function SearchFlight() {
 
                 <AirportSearch setSelectedAirport={setEndAirport} />
 
-                <TextField
+                {/* <TextField
                     label="Date"
                     variant="outlined"
                     fullWidth
@@ -81,11 +82,15 @@ function SearchFlight() {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <CalendarToday />
+                                <EventIcon />
                             </InputAdornment>
                         )
                     }}
-                />
+                /> */}
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker label="Date" className="w-full" />
+                </LocalizationProvider>
 
                 <Button
                     variant="contained"
