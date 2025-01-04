@@ -4,7 +4,7 @@ import rotateface from "../../assets/rotateface.gif";
 import cameraicon from "../../assets/camera-icon.png";
 
 import Webcam from "react-webcam";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const PassengerDetails = () => {
 
