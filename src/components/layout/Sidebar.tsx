@@ -1,12 +1,12 @@
+import { options } from "../../data";
 import { Option } from "../../types";
 
 interface Props {
-    options: any;
     selectedOption: Option;
     setSelectedOption: Function;
 };
 
-const Sidebar: React.FC<Props> = ({ options, selectedOption, setSelectedOption }) => {
+const Sidebar: React.FC<Props> = ({ selectedOption, setSelectedOption }) => {
 
     return (
         <div className="h-[97vh] w-[15vw] bg-white rounded-xl shadow-[0_3px_3px_3px_rgba(0,0,0,0.05)] m-2 py-4 px-4 flex flex-col gap-1">
