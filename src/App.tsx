@@ -33,7 +33,7 @@ const App = () => {
         setShowAirlines={setShowAirlines}
       />; break;
       case 'Passenger Details': component = <PassengerDetails setSelectedOption={setSelectedOption} />; break;
-      case 'Select Seat': component = <SelectSeat />; break;
+      case 'Select Seat': component = <SelectSeat setSelectedOption={setSelectedOption} />; break;
       case 'Boarding Pass': component = <BoardingPass />; break;
       case 'Conclusion': component = <Conclusion />; break;
     }

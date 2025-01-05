@@ -7,7 +7,7 @@ import Webcam from "react-webcam";
 import React, { useRef, useState } from "react";
 
 interface Props {
-    setSelectedOption: Function
+    setSelectedOption: Function;
 };
 
 const PassengerDetails: React.FC<Props> = ({ setSelectedOption }) => {

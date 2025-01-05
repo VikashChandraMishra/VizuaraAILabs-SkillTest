@@ -46,6 +46,13 @@ function SearchFlight({ startAirport, setStartAirport, endAirport, setEndAirport
         setDate(e?.$d?.toLocaleDateString({}, { timeZone: "UTC", month: "short", day: "2-digit", year: "numeric" }).split('-').join(''));
     };
 
+    const saveTravelDetails = () => {
+        localStorage.setItem('startCity', startAirport ? startAirport.city : '');
+        localStorage.setItem('endCity', endAirport ? endAirport.city : '');
+        localStorage.setItem('date', date ? date : '');
+        setSelectedOption('Passenger Details');
+    };
+
     return (
         <Box
             display="flex"
@@ -188,7 +195,7 @@ function SearchFlight({ startAirport, setStartAirport, endAirport, setEndAirport
                                         height: '40px',
                                         borderRadius: "4px"
                                     }}
-                                    onClick={() => setSelectedOption('Passenger Details')}
+                                    onClick={saveTravelDetails}
                                 >
                                     SELECT
                                 </Button>
