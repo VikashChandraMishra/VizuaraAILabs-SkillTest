@@ -21,8 +21,8 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
     const [matching, setMatching] = useState(false);
 
     const capture = async () => {
+        setMatching(true);
         if (webcamRef.current) {
-            setMatching(true);
             const matchObject = await match(webcamRef.current.getScreenshot());
             let personData = { firstName: '', lastName: '' };
             if (matchObject.length > 0) {
