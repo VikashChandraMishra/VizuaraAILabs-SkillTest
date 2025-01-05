@@ -25,12 +25,22 @@ interface Props {
 
 const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity, endCity, date, firstName, lastName, approved }) => {
 
+    const handlePrint = () => {
+        document.getElementById('pass')?.classList.remove('w-[78vw]');
+        document.getElementById('pass')?.classList.remove('px-8');
+        document.getElementById('pass')?.classList.add('w-[120vw]');
+        window.print();
+        document.getElementById('pass')?.classList.add('w-[78vw]');
+        document.getElementById('pass')?.classList.add('px-8');
+        document.getElementById('pass')?.classList.remove('w-[120vw]');
+    };
+
     return (
         <ModalContainer toggleModal={toggleModal}>
-            <div className="relative w-[78vw] flex flex-col py-6 px-8 justify-start items-center bg-slate-100 rounded shadow-xl">
+            <div id="pass" className="printable relative w-[78vw] flex flex-col py-6 px-8 justify-start items-center bg-slate-100 rounded shadow-xl">
                 <p className="text-center text-red-600 text-2xl">
                     <span className="font-bold">Boarding Pass Issued</span>
-                    <span> (Final Approval Pending)</span>
+                    <span> {approved === 'true' ? '' : `(Final Approval Pending)`}</span>
                 </p>
                 <img src={approvalSeal} width={230} className={`${approved === 'true' ? '' : 'hidden'} absolute top-72 right-96`} alt="" />
                 <div className="mt-14 w-full">
@@ -76,7 +86,7 @@ const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity,
                                                     <span className="font-light">Date</span>
                                                     <span className="">{date}</span>
                                                 </div>
-                                                <div className="flex gap-16">
+                                                <div className="flex gap-16 flex-wrap">
                                                     <span className="font-light">Seq</span>
                                                     <span className="">&nbsp;&nbsp;&nbsp;0102</span>
                                                 </div>
@@ -138,9 +148,9 @@ const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity,
                     </div>
                     <div></div>
                 </div>
-                <div className="flex justify-end w-full mt-4">
+                <div className="flex justify-end w-full mt-4 gap-2 no-print">
                     <button className="border border-blue-400 text-blue-500 rounded-md px-6 py-2" onClick={() => toggleModal()}>CANCEL</button>
-                    <button className="text-blue-500 rounded-md px-6 py-2">PRINT</button>
+                    <button className="border border-blue-400 text-blue-500 rounded-md px-6 py-2" onClick={handlePrint}>PRINT</button>
                 </div>
             </div>
         </ModalContainer>

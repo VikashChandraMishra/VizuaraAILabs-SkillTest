@@ -7,3 +7,23 @@ html {
     margin: 0;
     padding: 0;
 }
+
+@media print {
+
+    html,
+    body {
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .no-print {
+        display: none;
+    }
+    
+    .printable {
+        /* might not work on all browsers */
+        /* could find better approach    */
+        print-color-adjust: exact;
+    }
+}

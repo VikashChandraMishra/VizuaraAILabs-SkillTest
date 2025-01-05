@@ -18,8 +18,11 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
 
     const webcamRef = useRef<Webcam>(null);
 
+    const [matching, setMatching] = useState(false);
+
     const capture = async () => {
         if (webcamRef.current) {
+            setMatching(true);
             const matchObject = await match(webcamRef.current.getScreenshot());
             let personData = { firstName: '', lastName: '' };
             if (matchObject.length > 0) {
@@ -29,6 +32,7 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
                         personData = JSON.parse(localStorage.getItem('person1') ?? '');
                         alert("Hello, " + personData.firstName + ' ' + personData.lastName + '! Your face has been recognized successfully. Happy Journey!');
                         localStorage.setItem('person1Approved', 'true');
+                        setMatching(false);
                         toggleCamModal();
                     } else {
                         alert("Your face was not recognized. Try again!");
@@ -39,6 +43,7 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
                         personData = JSON.parse(localStorage.getItem('person2') ?? '');
                         alert("Hello, " + personData.firstName + ' ' + personData.lastName + '! Your face has been recognized successfully. Happy Journey!');
                         localStorage.setItem('person2Approved', 'true');
+                        setMatching(false);
                         toggleCamModal();
                     } else {
                         alert("Your face was not recognized. Try again!");
@@ -49,6 +54,7 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
             } else {
                 alert("Your face was not recognized. Try again!");
             }
+            setMatching(false);
         }
     };
 
@@ -66,7 +72,7 @@ const CamModal: React.FC<CamModalProps> = ({ toggleCamModal }) => {
                     />
                 </div>
                 <div className="flex justify-between">
-                    <button onClick={capture} className="border border-blue-400 text-blue-500 rounded-md px-6 py-2 mt-5">CLICK</button>
+                    <button onClick={capture} disabled={matching} className="border border-blue-400 text-blue-500 rounded-md px-6 py-2 mt-5">{matching ? 'MATCHING...' : 'CLICK'}</button>
                     <button onClick={() => toggleCamModal()} className="border border-blue-400 text-blue-500 rounded-md px-6 py-2 mt-5">CANCEL</button>
                 </div>
             </div>
