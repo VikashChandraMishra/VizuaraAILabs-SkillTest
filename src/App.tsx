@@ -8,6 +8,7 @@ import Conclusion from "./components/options/Conclusion";
 import BoardingPass from "./components/options/BoardingPass";
 import PassengerDetails from "./components/options/PassengerDetails";
 import SelectSeat from "./components/options/SelectSeat";
+import SelfCheckIn from "./components/options/SelfCheckIn";
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
       case 'Passenger Details': component = <PassengerDetails setSelectedOption={setSelectedOption} />; break;
       case 'Select Seat': component = <SelectSeat selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} setSelectedOption={setSelectedOption} />; break;
       case 'Boarding Pass': component = <BoardingPass seats={selectedSeats} setSelectedOption={setSelectedOption} />; break;
+      case 'Self Check-in': component = <SelfCheckIn />; break;
       case 'Conclusion': component = <Conclusion />; break;
     }
     return component;

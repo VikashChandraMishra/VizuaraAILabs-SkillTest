@@ -15,6 +15,7 @@ interface ModalProps {
     date: string;
     firstName: string;
     lastName: string;
+    approved: string;
 };
 
 interface Props {
@@ -22,7 +23,7 @@ interface Props {
     setSelectedOption: Function;
 };
 
-const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity, endCity, date, firstName, lastName }) => {
+const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity, endCity, date, firstName, lastName, approved }) => {
 
     return (
         <ModalContainer toggleModal={toggleModal}>
@@ -31,7 +32,7 @@ const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity,
                     <span className="font-bold">Boarding Pass Issued</span>
                     <span> (Final Approval Pending)</span>
                 </p>
-                <img src={approvalSeal} width={230} className="absolute top-72 right-96" alt="" />
+                <img src={approvalSeal} width={230} className={`${approved === 'true' ? '' : 'hidden'} absolute top-72 right-96`} alt="" />
                 <div className="mt-14 w-full">
                     <div className="flex w-[90%] mx-auto">
                         <div className="w-3/4">
@@ -138,7 +139,7 @@ const BoardingPassModal: React.FC<ModalProps> = ({ toggleModal, seat, startCity,
                     <div></div>
                 </div>
                 <div className="flex justify-end w-full mt-4">
-                    <button className="border border-blue-400 text-blue-500 rounded-md px-6 py-2">CANCEL</button>
+                    <button className="border border-blue-400 text-blue-500 rounded-md px-6 py-2" onClick={() => toggleModal()}>CANCEL</button>
                     <button className="text-blue-500 rounded-md px-6 py-2">PRINT</button>
                 </div>
             </div>
@@ -201,6 +202,7 @@ const BoardingPass: React.FC<Props> = ({ seats, setSelectedOption }) => {
                     seat={seats[0]}
                     firstName={person1.firstName}
                     lastName={person1.lastName}
+                    approved={localStorage.getItem('person1Approved') ?? 'false'}
                 />
             }
 
@@ -214,6 +216,7 @@ const BoardingPass: React.FC<Props> = ({ seats, setSelectedOption }) => {
                     seat={seats[1]}
                     firstName={person2.firstName}
                     lastName={person2.lastName}
+                    approved={localStorage.getItem('person2Approved') ?? 'false'}
                 />
             }
 
