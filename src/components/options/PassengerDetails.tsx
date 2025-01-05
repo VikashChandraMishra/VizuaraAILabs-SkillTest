@@ -70,8 +70,10 @@ const PassengerDetails: React.FC<Props> = ({ setSelectedOption }) => {
     };
 
     const handleSubmit = () => {
-        localStorage.setItem('person1Images', person1Images.join('@'));
-        localStorage.setItem('person2Images', person2Images.join('@'));
+        localStorage.setItem('person1Images', JSON.stringify(person1Images));
+        localStorage.setItem('person2Images', JSON.stringify(person2Images));
+        localStorage.setItem('person1', JSON.stringify(person1));
+        localStorage.setItem('person2', JSON.stringify(person2));
         setSelectedOption('Select Seat');
     };
 

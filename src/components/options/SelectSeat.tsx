@@ -1,17 +1,17 @@
 import planeFront from "../../assets/plane-front.png";
 import planeRightWing from "../../assets/plane-right-wing.png";
 import planeLeftWing from "../../assets/plane-left-wing.png";
-import React, { useState } from "react";
+import React from "react";
 import Seat from "../additional/Seat";
 import { Button } from "@mui/material";
 
 interface Props {
     setSelectedOption: Function;
+    selectedSeats: any[];
+    setSelectedSeats: Function;
 };
 
-const SelectSeat: React.FC<Props> = ({ setSelectedOption }) => {
-
-    const [selectedSeats, setSelectedSeats] = useState<any[]>([]);
+const SelectSeat: React.FC<Props> = ({ setSelectedOption, selectedSeats, setSelectedSeats }) => {
 
     const handleSeatSelection = (seat: string) => {
         if (selectedSeats.includes(seat)) {
@@ -23,11 +23,6 @@ const SelectSeat: React.FC<Props> = ({ setSelectedOption }) => {
         } else {
             setSelectedSeats(selectedSeats.concat(seat))
         }
-    };
-
-    const saveSelectedSeats = () => {
-        localStorage.setItem('seats', selectedSeats.join());
-        setSelectedOption('Boarding Pass');
     };
 
     return (
@@ -72,7 +67,7 @@ const SelectSeat: React.FC<Props> = ({ setSelectedOption }) => {
                             height: '40px',
                             borderRadius: "24px"
                         }}
-                        onClick={saveSelectedSeats}
+                        onClick={() => setSelectedOption('Boarding Pass')}
                     >
                         Next
                     </Button>

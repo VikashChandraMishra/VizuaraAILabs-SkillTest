@@ -17,6 +17,7 @@ const App = () => {
   const [endAirport, setEndAirport] = useState<Airport | null>(null);
   const [date, setDate] = useState();
   const [showAirlines, setShowAirlines] = useState(false);
+  const [selectedSeats, setSelectedSeats] = useState<any[]>([]);
 
   const getOptionComponent = () => {
     let component = <></>;
@@ -33,8 +34,8 @@ const App = () => {
         setShowAirlines={setShowAirlines}
       />; break;
       case 'Passenger Details': component = <PassengerDetails setSelectedOption={setSelectedOption} />; break;
-      case 'Select Seat': component = <SelectSeat setSelectedOption={setSelectedOption} />; break;
-      case 'Boarding Pass': component = <BoardingPass />; break;
+      case 'Select Seat': component = <SelectSeat selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} setSelectedOption={setSelectedOption} />; break;
+      case 'Boarding Pass': component = <BoardingPass seats={selectedSeats} setSelectedOption={setSelectedOption} />; break;
       case 'Conclusion': component = <Conclusion />; break;
     }
     return component;
