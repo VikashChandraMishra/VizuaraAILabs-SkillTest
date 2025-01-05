@@ -8,10 +8,12 @@ import { Airport } from "../../types";
 import { airports } from "../../data";
 
 interface Props {
+    label: string;
+    selectedAirport: Airport | null;
     setSelectedAirport: Function;
 };
 
-function AirportSearch({ setSelectedAirport }: Props) {
+function AirportSearch({ label, selectedAirport, setSelectedAirport }: Props) {
 
     return (
         <Autocomplete<Airport>
@@ -26,7 +28,7 @@ function AirportSearch({ setSelectedAirport }: Props) {
                 <ListItem
                     {...props}
                     key={option.code}
-                    className="bg-gray-100 hover:bg-gray-200 flex gap-2"
+                    className="bg-gray-100 hover:bg-gray-200 flex gap-2 cursor-pointer"
                 >
                     <div className="flex flex-col">
                         <img src={flightIcon} width={40} alt="" />
@@ -38,19 +40,24 @@ function AirportSearch({ setSelectedAirport }: Props) {
                     </div>
                 </ListItem>
             )}
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="From"
+            renderInput={(params) => {
+                const { inputProps, ...otherParams } = params;
+                let { value, ...otherInputProps } = inputProps;
+                otherInputProps = { ...otherInputProps, style: { fontWeight: 'bold' } }
+                return <TextField
+                    inputProps={otherInputProps}
+                    {...otherParams}
+                    value={selectedAirport ? `${selectedAirport.code} - ${selectedAirport.city}` : ''}
+                    label={label}
                     variant="outlined"
                     fullWidth
                     sx={{
                         borderRadius: "8px",
                         width: '270px'
                     }}
-                    className="bg-gray-100"
+                    className="bg-gray-100 font-bold"
                 />
-            )}
+            }}
             sx={{
                 width: 400
             }}

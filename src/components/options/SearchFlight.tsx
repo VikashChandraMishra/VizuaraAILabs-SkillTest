@@ -11,21 +11,39 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AirportSearch from "../additional/AirportSearch";
 import { airlines } from "../../data";
 import { Airport } from "../../types";
-import { useState } from "react";
 
-function SearchFlight() {
+interface Props {
+    startAirport: Airport | null;
+    setStartAirport: Function;
+    endAirport: Airport | null;
+    setEndAirport: Function;
+    date: any;
+    setDate: Function;
+    setSelectedOption: Function;
+    showAirlines: Boolean;
+    setShowAirlines: Function;
+};
 
-    const [startAirport, setStartAirport] = useState<Airport | null>(null);
-    const [endAirport, setEndAirport] = useState<Airport | null>(null);
+function SearchFlight({ startAirport, setStartAirport, endAirport, setEndAirport, date, setDate, setSelectedOption, showAirlines, setShowAirlines }: Props) {
 
-    const [showAirlines, setShowAirlines] = useState(false);
+    const swapAirports = () => {
+        if (startAirport || endAirport) {
+            const temp = startAirport;
+            setStartAirport(endAirport);
+            setEndAirport(temp);
+        }
+    };
 
     const handleSearch = () => {
-        if (startAirport && endAirport) {
+        if (startAirport && endAirport && date) {
             setShowAirlines(true);
         } else {
             setShowAirlines(false);
         }
+    };
+
+    const handleDateChange = (e: any) => {
+        setDate(e?.$d?.toLocaleDateString({}, { timeZone: "UTC", month: "short", day: "2-digit", year: "numeric" }).split('-').join(''));
     };
 
     return (
@@ -56,23 +74,24 @@ function SearchFlight() {
                     boxShadow: 2,
                     p: 6,
                     width: "100%",
-                    maxWidth: 1100,
+                    maxWidth: 1100
                 }}
                 className="bg-gray-100"
             >
-                <AirportSearch setSelectedAirport={setStartAirport} />
+                <AirportSearch label="From" selectedAirport={startAirport} setSelectedAirport={setStartAirport} />
 
                 <Box
                     sx={{
                         color: '#FF66C4'
                     }}
+                    onClick={swapAirports}
                 >
                     <IconButton color="inherit">
                         <SwapHoriz />
                     </IconButton>
                 </Box>
 
-                <AirportSearch setSelectedAirport={setEndAirport} />
+                <AirportSearch label="To" selectedAirport={endAirport} setSelectedAirport={setEndAirport} />
 
                 {/* <TextField
                     label="Date"
@@ -89,13 +108,17 @@ function SearchFlight() {
                 /> */}
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="Date" className="w-full" />
+                    <DatePicker label="Date" className="w-full" onChange={handleDateChange} />
                 </LocalizationProvider>
 
                 <Button
                     variant="contained"
                     sx={{
                         backgroundImage: "linear-gradient(to right, #ab47bc, #ff4081)",
+                        '&:hover': {
+                            backgroundImage: "linear-gradient(to right, #ff4081, #ab47bc)",
+                            transform: 'scale(1.05)'
+                        },
                         color: "white",
                         width: '90px',
                         height: '55px',
@@ -156,11 +179,16 @@ function SearchFlight() {
                                     variant="contained"
                                     sx={{
                                         backgroundImage: "linear-gradient(to right, #ab47bc, #ff4081)",
+                                        '&:hover': {
+                                            backgroundImage: "linear-gradient(to right, #ff4081, #ab47bc)",
+                                            transform: 'scale(1.05)'
+                                        },
                                         color: "white",
                                         width: '90px',
                                         height: '40px',
                                         borderRadius: "4px"
                                     }}
+                                    onClick={() => setSelectedOption('Passenger Details')}
                                 >
                                     SELECT
                                 </Button>

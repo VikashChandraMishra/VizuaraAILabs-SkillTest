@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Main from "./components/layout/Main";
 import Sidebar from "./components/layout/Sidebar";
-import { Option } from "./types";
+import { Airport } from "./types";
 import SearchFlight from "./components/options/SearchFlight";
 import { options } from "./data";
 import Conclusion from "./components/options/Conclusion";
@@ -11,12 +11,27 @@ import SelectSeat from "./components/options/SelectSeat";
 
 const App = () => {
 
-  const [selectedOption, setSelectedOption] = useState<Option>(options[0]);
+  const [selectedOption, setSelectedOption] = useState<string>(options[0]);
+
+  const [startAirport, setStartAirport] = useState<Airport | null>(null);
+  const [endAirport, setEndAirport] = useState<Airport | null>(null);
+  const [date, setDate] = useState();
+  const [showAirlines, setShowAirlines] = useState(false);
 
   const getOptionComponent = () => {
     let component = <></>;
-    switch (selectedOption.name) {
-      case 'Search Flight': component = <SearchFlight />; break;
+    switch (selectedOption) {
+      case 'Search Flight': component = <SearchFlight
+        startAirport={startAirport}
+        setStartAirport={setStartAirport}
+        endAirport={endAirport}
+        setEndAirport={setEndAirport}
+        date={date}
+        setDate={setDate}
+        setSelectedOption={setSelectedOption}
+        showAirlines={showAirlines}
+        setShowAirlines={setShowAirlines}
+      />; break;
       case 'Passenger Details': component = <PassengerDetails />; break;
       case 'Select Seat': component = <SelectSeat />; break;
       case 'Boarding Pass': component = <BoardingPass />; break;
@@ -29,7 +44,7 @@ const App = () => {
     <div className="bg-gray-200 p-1 flex">
       <Sidebar selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       {
-        selectedOption.name === 'Conclusion' ?
+        selectedOption === 'Conclusion' ?
           getOptionComponent()
           :
           <Main>

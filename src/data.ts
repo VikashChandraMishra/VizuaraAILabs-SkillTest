@@ -1,4 +1,3 @@
-import { Option } from "./types";
 import spiceJetLogo from "./assets/spiceJet-logo.png";
 import IndiGoLogo from "./assets/IndiGo-logo.jpg";
 import AkasaAirLogo from "./assets/Akasa-Air-logo.png";
@@ -112,31 +111,13 @@ export const airports = [
     },
 ];
 
-export const options: Option[] = [
-    {
-        name: 'Search Flight',
-        link: '/search-flight',
-    },
-    {
-        name: 'Passenger Details',
-        link: '/passenger-details',
-    },
-    {
-        name: 'Select Seat',
-        link: '/select-seat',
-    },
-    {
-        name: 'Boarding Pass',
-        link: '/boarding-pass',
-    },
-    {
-        name: 'Self Check-in',
-        link: '/self-check-in',
-    },
-    {
-        name: 'Conclusion',
-        link: '/conclusion',
-    },
+export const options = [
+    'Search Flight',
+    'Passenger Details',
+    'Select Seat',
+    'Boarding Pass',
+    'Self Check-in',
+    'Conclusion',
 ];
 
 export const airlines = [
